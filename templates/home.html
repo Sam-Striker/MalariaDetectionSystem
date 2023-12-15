@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'detection/vendor/bootstrap-5.2.0-dist/css/bootstrap.min.css' %}" /> {% endcomment %}
+    <title>MALARIA DETECTION</title>
+    <style>
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #25a302b5;
+        padding: 20px;
+      }
+      
+      .form-control {
+        width: 300px;
+        margin-left: 400px;
+      }
+      
+      .text-label {
+        font-weight: bold;
+        white-space: nowrap;
+        margin-right: 100px;
+        color: black;
+        font-size:xx-large;
+      }
+      
+      input::placeholder {
+        color: #999;
+        font-weight: normal;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .btn-predict {
+        width: 40%;
+        margin-top: 20px;
+        background-color: black;
+        color: white;
+        font-size:xx-large;
+        margin:auto;
+        margin-left:200px;
+
+      }
+      
+      .title-container {
+        background-color: #000000;
+        color: white;
+        padding: 20px;
+        width: 100%;
+        white-space: nowrap;
+      }
+      
+      .title {
+        font-size: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .form-control::placeholder {
+        width: 350px;
+      }
+    </style>
+  </head>
+  <body class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="title-container">
+          <h1>MALARIA CLINICAL DETECTION</h1>
+        </div>
+      </div>
+    </div>
+
+    <form class="container" action="index" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Temperature in Celsius</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="36.0" name="temp" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Parasite Density</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="949.0" name="pdensity" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">White Blood Cell Count</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="4.7" name="wbcCount" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Red Blood Cell Count</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="4.7" name="rbcCount" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Haemoglobin Level</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="10.2" name="hblevel" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Hematocrit</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="31.4" name="hematocrit" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mean Cell Volume</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="77.1" name="mcVolume" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mean Corp HB</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="25.1" name="mcHb" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mean Corp HB Conc</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="32.5" name="mcHbC" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Plstelet Count</label>
+        </div>
+        <div class="col col-6 col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="92.0" name="pcount" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Platelet Distribution Width</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="15.8" name="pdw" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mean Platelet Vl</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="10.4" name="mpVl" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Neutrophils Percent(%)</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="39.0" name="npercent" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Lymphocytes Percent</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="38.2" name="lymphoPercent" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mixed Cells Percent</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="22.8" name="mixedPercent" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Neutrophils Count</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="1.8" name="npCount" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Lymphocytes Count</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="1.8" name="lymphoCount" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2 mt-5">
+          <label class="text-label">Mixed Cells Count</label>
+        </div>
+        <div class="col-sm-2 mt-5">
+          <input class="form-control" type="number" step="0.1" placeholder="1.1" name="mcCells" />
+        </div>
+      </div>
+      <div class="row container mt-5">
+        <button class="btn btn-outline-primary btn-predict" type="submit">Predict</button>
+      </div>
+
+      <div class="card p-2 mt-4 text-center">
+        <h5 class="h5"><u>Diagnosis</u></h5>
+        <h4 class="h4">{{ prediction }}</h4>
+      </div>
+    </form>
+  </body>
+</html>
